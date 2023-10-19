@@ -1,0 +1,9 @@
+.apiCentral{
+display: flex;
+justify-content: center;
+flex-direction: column;
+}
+.pagina{
+    color: black;
+}
+
