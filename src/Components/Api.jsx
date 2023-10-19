@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Api.css";
-import Map from './Map';
-
+import Map from "./Map";
 
 export const Api = () => {
   const [data, setData] = useState([]);
@@ -16,21 +15,25 @@ export const Api = () => {
 
   function handleProvinciaFilter(event) {
     setProvinciaFilter(event.target.value);
+    localStorage.setItem("provinciaFilter", event.target.value);
     setOffset(0);
   }
-  console.log(provinciaFilter, "SOY PROVINCIAA");
+
   function handleCausaProbableFilter(event) {
     setCausaProbableFilter(event.target.value);
+    localStorage.setItem("causaProbableFilter", event.target.value);
     setOffset(0);
   }
 
   function handleSituacionActualFilter(event) {
     setSituacionActualFilter(event.target.value);
+    localStorage.setItem("situacionActualFilter", event.target.value);
     setOffset(0);
   }
 
   function handleNivelMaximoFilter(event) {
     setNivelMaximoFilter(event.target.value);
+    localStorage.setItem("nivelMaximoFilter", event.target.value);
     setOffset(0);
   }
 
@@ -47,45 +50,77 @@ export const Api = () => {
     );
   });
 
-
   useEffect(() => {
-    let apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+    const storedProvinciaFilter = localStorage.getItem("provinciaFilter");
+    const storedCausaProbableFilter = localStorage.getItem(
+      "causaProbableFilter"
+    );
+    const storedSituacionActualFilter = localStorage.getItem(
+      "situacionActualFilter"
+    );
+    const storedNivelMaximoFilter = localStorage.getItem("nivelMaximoFilter");
 
-    if(provinciaFilter === "ÁVILA"){
-     apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22%C3%81VILA%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+    if (storedProvinciaFilter) {
+      setProvinciaFilter(storedProvinciaFilter);
     }
-    if(provinciaFilter === "LEÓN"){
-       apiURL=  `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22LE%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
-    }else if(provinciaFilter){
-        apiURL=  `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22${provinciaFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+    if (storedCausaProbableFilter) {
+      setCausaProbableFilter(storedCausaProbableFilter);
     }
-    if(causaProbableFilter === "EN INVESTIGACIÓN"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22EN%20INVESTIGACI%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+    if (storedSituacionActualFilter) {
+      setSituacionActualFilter(storedSituacionActualFilter);
     }
-    if(causaProbableFilter === "ACCIDENTAL (MOTORES Y MÁQUINAS)"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22ACCIDENTAL%20(MOTORES%20Y%20M%C3%81QUINAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+    if (storedNivelMaximoFilter) {
+      setNivelMaximoFilter(storedNivelMaximoFilter);
     }
-    if(causaProbableFilter === "NEGLIGENCIAS (LÍNEAS ELÉCTRICAS)"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(L%C3%8DNEAS%20EL%C3%89CTRICAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    let apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+
+    if (provinciaFilter === "ÁVILA") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22%C3%81VILA%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    if(causaProbableFilter === "NEGLIGENCIAS (QUEMA AGRÍCOLA)"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(QUEMA%20AGR%C3%8DCOLA)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    if (provinciaFilter === "LEÓN") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22LE%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    } else if (provinciaFilter) {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22${provinciaFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    if(causaProbableFilter === "NEGLIGENCIAS (LIMPIEZAS DE VEGETACIÓN)"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(LIMPIEZAS%20DE%20VEGETACI%C3%93N)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    if (causaProbableFilter === "EN INVESTIGACIÓN") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22EN%20INVESTIGACI%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    if(causaProbableFilter === "NEGLIGENCIAS (ELIMINACIÓN DE BASURAS Y RESTOS)"){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(ELIMINACI%C3%93N%20DE%20BASURAS%20Y%20RESTOS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
-    }else if(causaProbableFilter){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22${causaProbableFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    if (causaProbableFilter === "ACCIDENTAL (MOTORES Y MÁQUINAS)") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22ACCIDENTAL%20(MOTORES%20Y%20M%C3%81QUINAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    if(situacionActualFilter){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20situacion_actual%20%3D%20%22${situacionActualFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    if (causaProbableFilter === "NEGLIGENCIAS (LÍNEAS ELÉCTRICAS)") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(L%C3%8DNEAS%20EL%C3%89CTRICAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    if(nivelMaximoFilter){
-        apiURL= `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20nivel_maximo_alcanzado%20%3D%20%22${nivelMaximoFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`
+
+    if (causaProbableFilter === "NEGLIGENCIAS (QUEMA AGRÍCOLA)") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(QUEMA%20AGR%C3%8DCOLA)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
-    
+
+    if (causaProbableFilter === "NEGLIGENCIAS (LIMPIEZAS DE VEGETACIÓN)") {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(LIMPIEZAS%20DE%20VEGETACI%C3%93N)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    }
+
+    if (
+      causaProbableFilter === "NEGLIGENCIAS (ELIMINACIÓN DE BASURAS Y RESTOS)"
+    ) {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(ELIMINACI%C3%93N%20DE%20BASURAS%20Y%20RESTOS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    } else if (causaProbableFilter) {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22${causaProbableFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    }
+
+    if (situacionActualFilter) {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20situacion_actual%20%3D%20%22${situacionActualFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    }
+
+    if (nivelMaximoFilter) {
+      apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20nivel_maximo_alcanzado%20%3D%20%22${nivelMaximoFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
+    }
+
     axios
       .get(apiURL)
       .then((response) => {
@@ -94,7 +129,13 @@ export const Api = () => {
       .catch((error) => {
         console.error("Error al obtener los datos de la API data", error);
       });
-  }, [offset,provinciaFilter,causaProbableFilter,situacionActualFilter,nivelMaximoFilter]);
+  }, [
+    offset,
+    provinciaFilter,
+    causaProbableFilter,
+    situacionActualFilter,
+    nivelMaximoFilter,
+  ]);
 
   function paginadohaciadelante() {
     setOffset(offset + 10);
@@ -102,22 +143,19 @@ export const Api = () => {
 
   function paginadohaciadetras() {
     if (offset != 0) {
-        setOffset(offset - 10);
+      setOffset(offset - 10);
     }
   }
 
-  function mostrarMapa(incendio){
+  function mostrarMapa(incendio) {
     setMapVisible(true);
     setIncendioSeleccionado(incendio);
   }
 
-
-  console.log(data);
-
   return (
     <>
       <div className="apiCentral">
-        <h1>Incendios en Castilla y Leon desde el año 2022</h1>
+        <h1 className="h1">Incendios en Castilla y Leon desde el año 2022</h1>
         <div className="select">
           <select value={provinciaFilter} onChange={handleProvinciaFilter}>
             <option value="">Filtrar por provincia</option>
@@ -131,7 +169,6 @@ export const Api = () => {
             <option value="VALLADOLID">VALLADOLID</option>
             <option value="ZAMORA">ZAMORA</option>
           </select>
-
           <select
             value={causaProbableFilter}
             onChange={handleCausaProbableFilter}
@@ -169,7 +206,6 @@ export const Api = () => {
             </option>
             <option value="REPRODUCIDO">REPRODUCIDO</option>
           </select>
-
           <select
             value={situacionActualFilter}
             onChange={handleSituacionActualFilter}
@@ -178,7 +214,6 @@ export const Api = () => {
             <option value="EXTINGUIDO">EXTINGUIDO</option>
             <option value="CONTROLADO">CONTROLADO</option>
           </select>
-
           <select value={nivelMaximoFilter} onChange={handleNivelMaximoFilter}>
             <option value="">Filtrar por nivel máximo</option>
             <option value="0">0</option>
@@ -186,8 +221,7 @@ export const Api = () => {
             <option value="2">2</option>
           </select>
         </div>
-
-        <table class="table table-dark">
+        <table className="table table-dark tabla">
           <thead>
             <tr>
               <th>Causa probable</th>
@@ -206,7 +240,7 @@ export const Api = () => {
               <th>Situacion actual</th>
               <th>Termino municipal</th>
               <th>Tipo y has de superficie afectada</th>
-              <th>Ver en el Mapa</th>
+              <th>Mapa</th>
             </tr>
           </thead>
           <tbody>
@@ -231,22 +265,38 @@ export const Api = () => {
                 <td>{incendio.situacion_actual}</td>
                 <td>{incendio.termino_municipal}</td>
                 <td>{incendio.tipo_y_has_de_superficie_afectada}</td>
-                <td> {incendio.posicion ? (<button onClick={() => mostrarMapa(incendio)}>Mostrar Mapa</button>) : null} </td>
+                <td>
+                  {incendio.posicion ? (
+                    <button onClick={() => mostrarMapa(incendio)}>
+                      Mostrar Mapa
+                    </button>
+                  ) : null}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         {mapVisible && (
-  <Map
-    lat={incendioSeleccionado.posicion?.lat}
-    lon={incendioSeleccionado.posicion?.lon}
-    onClose={() => setMapVisible(false)}
-  />
-)}
-        <div>
-          <button onClick={() => paginadohaciadetras()}>{"<"}</button>
-          <h3 className="pagina">Pagina {offset / 10 +1}</h3>
-          <button onClick={() => paginadohaciadelante()}>{">"}</button>
+          <Map
+            lat={incendioSeleccionado.posicion?.lat}
+            lon={incendioSeleccionado.posicion?.lon}
+            onClose={() => setMapVisible(false)}
+          />
+        )}
+        <div className="botones">
+          <button
+            onClick={() => paginadohaciadetras()}
+            className="btn btn-dark"
+          >
+            {"<"}
+          </button>
+          <h3 className="pagina">Pagina {offset / 10 + 1}</h3>
+          <button
+            onClick={() => paginadohaciadelante()}
+            className="btn btn-dark"
+          >
+            {">"}
+          </button>
         </div>
       </div>
     </>

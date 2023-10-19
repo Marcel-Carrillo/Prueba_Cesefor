@@ -1,9 +1,20 @@
-.apiCentral{
-display: flex;
-justify-content: center;
-flex-direction: column;
+.apiCentral {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.pagina{
-    color: black;
+.pagina {
+  color: black;
 }
-
+.h1 {
+  padding: 50px;
+}
+.select {
+  padding: 50px;
+}
+.botones {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 50px;
+}
