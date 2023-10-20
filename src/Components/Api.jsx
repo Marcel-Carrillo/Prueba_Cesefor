@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Api.css";
 import Map from "./Map";
+//Importo axios para conectar con la API
+//Importo Map para crear el mapa y posicionar el incendio
 
 export const Api = () => {
   const [data, setData] = useState([]);
@@ -13,30 +15,35 @@ export const Api = () => {
   const [mapVisible, setMapVisible] = useState(false);
   const [incendioSeleccionado, setIncendioSeleccionado] = useState(null);
 
+  //Esta función detecta el cambio al aplicar el filtro de provincia
   function handleProvinciaFilter(event) {
     setProvinciaFilter(event.target.value);
     localStorage.setItem("provinciaFilter", event.target.value);
     setOffset(0);
   }
 
+  //Esta función detecta el cambio al aplicar el filtro de causa probable
   function handleCausaProbableFilter(event) {
     setCausaProbableFilter(event.target.value);
     localStorage.setItem("causaProbableFilter", event.target.value);
     setOffset(0);
   }
 
+  //Esta función detecta el cambio al aplicar el filtro de sitacion actual
   function handleSituacionActualFilter(event) {
     setSituacionActualFilter(event.target.value);
     localStorage.setItem("situacionActualFilter", event.target.value);
     setOffset(0);
   }
 
+  //Esta función detecta el cambio al aplicar el filtro de máximo nivel alcanzado
   function handleNivelMaximoFilter(event) {
     setNivelMaximoFilter(event.target.value);
     localStorage.setItem("nivelMaximoFilter", event.target.value);
     setOffset(0);
   }
 
+  //Esta función filtra los incendios según el filtro seleccionado
   const filteredData = data.filter((incendio) => {
     return (
       (provinciaFilter === "" ||
@@ -51,6 +58,7 @@ export const Api = () => {
   });
 
   useEffect(() => {
+    //Aquí estoy comprobando si hay algun filtro seleccionado en el local storage y si lo hay lo recoge para cargar el componente con el filtro previamente aplicado
     const storedProvinciaFilter = localStorage.getItem("provinciaFilter");
     const storedCausaProbableFilter = localStorage.getItem(
       "causaProbableFilter"
@@ -73,54 +81,72 @@ export const Api = () => {
       setNivelMaximoFilter(storedNivelMaximoFilter);
     }
 
+    //Llamo a la api para traer todos los incendios
     let apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
 
+    //Llamo a la API para filtrar por provinicia Ávila
     if (provinciaFilter === "ÁVILA") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22%C3%81VILA%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por provinicia LEÓN
     if (provinciaFilter === "LEÓN") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22LE%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
-    } else if (provinciaFilter) {
+    }
+
+    //Llamo a la API para filtrar por provincias
+    else if (provinciaFilter) {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20provincia%20%3D%20%22${provinciaFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable EN INVESTIGACIÓN
     if (causaProbableFilter === "EN INVESTIGACIÓN") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22EN%20INVESTIGACI%C3%93N%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable ACCIDENTAL (MOTORES Y MÁQUINAS)
     if (causaProbableFilter === "ACCIDENTAL (MOTORES Y MÁQUINAS)") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22ACCIDENTAL%20(MOTORES%20Y%20M%C3%81QUINAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable NEGLIGENCIAS (LÍNEAS ELÉCTRICAS)
     if (causaProbableFilter === "NEGLIGENCIAS (LÍNEAS ELÉCTRICAS)") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(L%C3%8DNEAS%20EL%C3%89CTRICAS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable NEGLIGENCIAS (QUEMA AGRÍCOLA)
     if (causaProbableFilter === "NEGLIGENCIAS (QUEMA AGRÍCOLA)") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(QUEMA%20AGR%C3%8DCOLA)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable NEGLIGENCIAS (LIMPIEZAS DE VEGETACIÓN)
     if (causaProbableFilter === "NEGLIGENCIAS (LIMPIEZAS DE VEGETACIÓN)") {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(LIMPIEZAS%20DE%20VEGETACI%C3%93N)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por causa probable NEGLIGENCIAS (ELIMINACIÓN DE BASURAS Y RESTOS)
     if (
       causaProbableFilter === "NEGLIGENCIAS (ELIMINACIÓN DE BASURAS Y RESTOS)"
     ) {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22NEGLIGENCIAS%20(ELIMINACI%C3%93N%20DE%20BASURAS%20Y%20RESTOS)%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
-    } else if (causaProbableFilter) {
+    }
+
+    //Llamo a la API para filtrar por causa probable
+    else if (causaProbableFilter) {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20causa_probable%20%3D%20%22${causaProbableFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por situacion actual
     if (situacionActualFilter) {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20situacion_actual%20%3D%20%22${situacionActualFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Llamo a la API para filtrar por nivel máximo
     if (nivelMaximoFilter) {
       apiURL = `https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/incendios-forestales/records?where=fecha_del_parte%20%3E%202021%20and%20nivel_maximo_alcanzado%20%3D%20%22${nivelMaximoFilter}%22&order_by=fecha_del_parte%20asc&limit=10&offset=${offset}`;
     }
 
+    //Conecto con la API para traer los datos
     axios
       .get(apiURL)
       .then((response) => {
@@ -137,16 +163,19 @@ export const Api = () => {
     nivelMaximoFilter,
   ]);
 
+  //Esta función me pagina hacia delante los incendios
   function paginadohaciadelante() {
     setOffset(offset + 10);
   }
 
+  //Esta función me pagina hacia atrás los incendios
   function paginadohaciadetras() {
     if (offset != 0) {
       setOffset(offset - 10);
     }
   }
 
+  //Esta función me muestra el mapa al hacer click en el botón mostras mapa
   function mostrarMapa(incendio) {
     setMapVisible(true);
     setIncendioSeleccionado(incendio);
