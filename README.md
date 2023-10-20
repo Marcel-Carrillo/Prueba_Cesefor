@@ -15,6 +15,9 @@ Para configurar el proyecto en tu entorno local, sigue estos pasos:
 Clona el repositorio desde URL del Repositorio.
 https://github.com/Marcel-Carrillo/Prueba_Cesefor.git
 
+Enlace al proyecto en servidor Netlify:
+https://harmonious-caramel-b7d44f.netlify.app/
+
 En la raíz del proyecto, ejecuta el siguiente comando para instalar las dependencias:
 *npm install
 
