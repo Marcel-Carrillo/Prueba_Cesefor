@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+Documentación del Proyecto "Visualizador de Incendios en Castilla y León"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Introducción:
+Este proyecto es una aplicación web desarrollada en React que se conecta a una API de incendios en Castilla y León para mostrar datos en forma de tabla y en un mapa interactivo utilizando Leaflet. 
+La aplicación permite a los usuarios filtrar y explorar información sobre los incendios en la región.
 
-## Available Scripts
+Requisitos del Sistema:
+Asegúrate de tener instalados los siguientes requisitos antes de ejecutar la aplicación:
+*Node.js y npm
+*Navegador web moderno
 
-In the project directory, you can run:
+Configuración del Proyecto:
+Para configurar el proyecto en tu entorno local, sigue estos pasos:
 
-### `npm start`
+Clona el repositorio desde URL del Repositorio.
+https://github.com/Marcel-Carrillo/Prueba_Cesefor.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+En la raíz del proyecto, ejecuta el siguiente comando para instalar las dependencias:
+*npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Uso:
+Para iniciar la aplicación en modo de desarrollo, utiliza el siguiente comando:
+*npm start
 
-### `npm test`
+La aplicación estará disponible en http://localhost:3000 en tu navegador.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Estructura del Proyecto:
+/src: Contiene el código fuente de la aplicación React.
+/public: Archivos públicos como el punto de entrada HTML.
+/components: Componentes React reutilizables.
+/api: Lógica para conectarse a la API de incendios.
 
-### `npm run build`
+Funcionalidades Clave:
+Conexión a la API de incendios.
+Mostrar datos de incendios en una tabla.
+Filtrado de resultados por provincia, causa probable, situación actual y nivel máximo.
+Mostrar incendios en un mapa interactivo utilizando Leaflet.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Uso de la API:
+En este proyecto, se ha implementado una solución eficaz para mejorar la experiencia del usuario al realizar filtrados de datos. 
+Para lograrlo, se crearon múltiples API URLs que permiten a los usuarios aplicar filtros de manera sencilla y precisa. 
+Estas API URLs personalizadas ofrecen la flexibilidad necesaria para adaptar los resultados a las preferencias del usuario. 
+La estrategia de múltiples URL de la API garantiza que los usuarios puedan obtener información específica de manera rápida y efectiva, 
+lo que enriquece la experiencia de navegación y mejora la utilidad de la aplicación en la exploración de datos de incendios en Castilla y León.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Personalización de Leaflet
+Optimizo la personalización para que los mapas se ajusten de manera fluida y eficaz a la aplicación.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Conclusiones y Futuro
+Objetivo Cumplido: El proyecto ha logrado su objetivo principal de desarrollar una aplicación web en React que se conecta a una API de incendios en Castilla y León. 
+La aplicación proporciona a los usuarios una plataforma para visualizar datos de incendios de manera efectiva.
 
-### `npm run eject`
+Interfaz Intuitiva: La interfaz de usuario es amigable e intuitiva. Los usuarios pueden acceder y explorar la información de los incendios en la región de manera sencilla, 
+ya sea a través de tablas o un mapa interactivo.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Filtrado de Datos: La capacidad de filtrar datos por provincia, causa probable, situación actual y nivel máximo ha mejorado significativamente la experiencia del usuario. 
+Esto permite a los usuarios encontrar la información que necesitan de manera rápida y eficiente.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Personalización de Leaflet: La optimización de la personalización de Leaflet para los mapas asegura que se integren perfectamente en la aplicación, 
+ofreciendo una experiencia de usuario cohesiva y atractiva.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Uso de API Eficaz: La implementación de múltiples API URLs ha demostrado ser una solución efectiva para la mejora de la experiencia del usuario. 
+La flexibilidad en la búsqueda de información específica enriquece la experiencia de navegación.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Perspectivas Futuras: Para futuras mejoras, se podría considerar la adición de características como notificaciones en tiempo real de nuevos incendios, 
+la capacidad de exportar datos y la integración con otras fuentes de datos relevantes.
 
-## Learn More
+Créditos
+Deseo expresar mi agradecimiento a los siguientes recursos y bibliotecas de terceros que han sido fundamentales en el desarrollo exitoso del proyecto "Visualizador de Incendios en Castilla y León":
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Axios: Un agradecimiento especial a la biblioteca Axios por facilitar las solicitudes HTTP de manera eficiente y ayudar a conectar nuestra aplicación con la API de incendios de Castilla y León.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Leaflet: Extendida gratitud a la biblioteca Leaflet por proporcionar las capacidades de creación de mapas interactivos que han enriquecido la experiencia del usuario en la aplicación.
 
-### Code Splitting
+Bootstrap: Reconocimiento a Bootstrap por su conjunto de herramientas de diseño y componentes que han permitido crear una interfaz de usuario atractiva y receptiva.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+react-router-dom: Agradecimiento a react-router-dom por facilitar la navegación y la creación de rutas en nuestra aplicación, lo que mejora la estructura y la accesibilidad para los usuarios.
 
-### Analyzing the Bundle Size
+Estos recursos y bibliotecas de terceros han contribuido significativamente al éxito del proyecto al proporcionar funcionalidades esenciales y herramientas de desarrollo eficientes. 
+Su dedicación a la comunidad de código abierto es fundamental para la creación de aplicaciones de alta calidad.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contacto:
+Marcel Carrillo Huerta
+mcarhue.ti@gmail.com
+https://www.marcelcarrillo.com
+https://www.linkedin.com/in/marcel-carrillo/
