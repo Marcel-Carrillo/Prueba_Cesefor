@@ -37,6 +37,7 @@ Funcionalidades Clave:
 Conexión a la API de incendios.
 Mostrar datos de incendios en una tabla.
 Filtrado de resultados por provincia, causa probable, situación actual y nivel máximo.
+Guardado de filtros en localStorage para mantenerlos si se cierra el navegador.
 Mostrar incendios en un mapa interactivo utilizando Leaflet.
 
 Uso de la API:
